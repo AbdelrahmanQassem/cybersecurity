@@ -1,33 +1,4 @@
-<!DOCTYPE html>
-<HTML lang="en">
-<HEAD>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title> Send a message </title>
-    <link rel='stylesheet' href='css/style.css' />
-</HEAD>
-<body>
-<h1>Send</h1>
-<form action="" method="POST">
-	<p>
-		<label>to (Username:)</label>
-		<input type="text" id="touser" name="touser"/>
-	
-	</p>
-	<p>
-		<label>content:</label><br>
-		<textarea id="content" name="content"></textarea>
-	
-	</p>
-	<p>
-		
-		<input type="submit" value="Send" id="btn" name="Send"/>
-	
-	</p> <br/> <br/>
-</form>
-</body>
-</html>
+
 <?php
 session_start();
 //echo"sssssssssssss";
@@ -56,7 +27,15 @@ if ($conn->connect_error) {
 	 $sql->bind_param("s",$_POST['touser']);
 	 $sql->execute();
 	 $sql->store_result();
-	
+	 $query = "SELECT * FROM `users`";
+	 $result2 = mysqli_query($conn, $query);
+
+	$options = "";
+
+while($row2 = mysqli_fetch_array($result2))
+{
+    $options = $options."<option>$row2[1]</option>";
+}
 if (isset($_POST['content'])&& ISSET($_POST['touser'])&&$sql->num_rows == 1&&$_POST['touser']!=$_SESSION[`name`])
 
 	{//echo"ddddddddddddddd";
@@ -81,3 +60,38 @@ if(!isset($_SESSION[`name`]))
 }
 
 ?>
+<!DOCTYPE html>
+<HTML lang="en">
+<HEAD>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> Send a message </title>
+    <link rel='stylesheet' href='css/style.css' />
+</HEAD>
+<body>
+<h1>Send</h1>
+<form action="" method="POST">
+	<p>
+		<label>to (Username:)</label>
+		
+        <select name="touser">
+            <?php echo $options;?>
+        </select>
+
+	
+	</p>
+	<p>
+		<label>content:</label><br>
+		<textarea id="content" name="content"></textarea>
+	
+	</p>
+	<p>
+		
+		<input type="submit" value="Send" id="btn" name="Send"/>
+	
+	</p> <br/> <br/>
+</form>
+</body>
+</html>
+
