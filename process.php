@@ -46,6 +46,7 @@ if ($statement->num_rows > 0) {
                // login failed save error to a session
                //$_SESSION['error'] = 'Sorry, wrong username or password';
 			   echo 'Error logged in, The username or the password is not correct, Try agian please';
+			   echo '<a href="login.php"><h2> Return </h2></a>';
   }
 
 }
