@@ -12,10 +12,13 @@
 if(strlen($_POST['newpass'])<8)
 {
     echo"The password is too short, It should be at least 8 characters";
+   echo '<a href="signup.php"><h2> Return </h2></a>';
+
     exit();
 }
 if($_POST['newpass']!=$_POST['cnewpass']){
     echo"The two passwords does not match";
+    echo '<a href="signup.php"><h2> Return </h2></a>';
     exit();
 }
 $newuser=$_POST['newuser'];
@@ -65,10 +68,16 @@ if ($conn->connect_error) {
                   exit; //to dont run the rest of code
  } 
 	else{ if(empty($newpass)) //check if the user didnt enter a password
-				echo"Please enter a password";
+			{	echo"Please enter a password";
+			    echo '<a href="signup.php"><h2> Return </h2></a>';
+			}
 			else if(empty($newuser))
-				echo"Please enter a username";
-		    else echo"This username is already used try another one";
+			{	echo"Please enter a username";
+			    echo '<a href="signup.php"><h2> Return </h2></a>';
+			}
+		    else {echo"This username is already used try another one";
+		        echo '<a href="signup.php"><h2> Return </h2></a>';
+		    }
 			
 			
 		}
